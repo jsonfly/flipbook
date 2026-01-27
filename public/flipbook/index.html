@@ -12,7 +12,8 @@
   <!-- jQuery (required by Turn.js) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <!-- Turn.js for flipbook effect -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script> -->
+  <script src="js/turn.js"></script>
   <!-- PDF.js for PDF rendering -->
   <script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
 </head>
@@ -37,19 +38,6 @@
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </button>
-    </div>
-
-    <!-- File Input (Optional) -->
-    <div class="file-input-wrapper">
-      <input type="file" id="pdf-input" class="file-input" accept=".pdf">
-      <label for="pdf-input" class="file-label">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="17 8 12 3 7 8"></polyline>
-          <line x1="12" y1="3" x2="12" y2="15"></line>
-        </svg>
-        Choose PDF
-      </label>
     </div>
 
     <!-- Flipbook Container -->

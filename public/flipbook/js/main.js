@@ -429,9 +429,9 @@ class FlipbookViewer {
    * Destroy existing flipbook
    */
   destroyFlipbook() {
-    // if ($(this.flipbook).turn('is')) {
-    //   $(this.flipbook).turn('destroy');
-    // }
+    if ($(this.flipbook).turn('is')) {
+      $(this.flipbook).turn('destroy');
+    }
     this.flipbook.innerHTML = '';
     this.renderedPages.clear();
   }
