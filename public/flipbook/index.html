@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Flipbook Viewer</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- External Libraries -->
+  <!-- jQuery (required by Turn.js) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Turn.js for flipbook effect -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+  <!-- PDF.js for PDF rendering -->
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
+</head>
+<body>
+  <div class="viewer-container">
+    <!-- Controls -->
+    <div class="controls">
+      <button id="prev-btn" class="nav-btn" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span>Previous</span>
+      </button>
+      
+      <div id="page-indicator" class="page-indicator">
+        <span class="current">0</span> of 0
+      </div>
+      
+      <button id="next-btn" class="nav-btn" disabled>
+        <span>Next</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <!-- File Input (Optional) -->
+    <div class="file-input-wrapper">
+      <input type="file" id="pdf-input" class="file-input" accept=".pdf">
+      <label for="pdf-input" class="file-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        Choose PDF
+      </label>
+    </div>
+
+    <!-- Flipbook Container -->
+    <div class="flipbook-wrapper">
+      <div class="flipbook-container">
+        <div id="flipbook"></div>
+      </div>
+      
+      <!-- Loading Overlay -->
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading PDF...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/main.js" type="module"></script>
+</body>
+</html>
