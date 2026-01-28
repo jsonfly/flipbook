@@ -22,6 +22,7 @@ class FlipbookViewer {
     this.pageHeight = 0;
     this.isLoading = false;
     this.renderedPages = new Set();
+    this.renderingPages = new Set(); // Track pages currently being rendered
     
     // DOM Elements
     this.flipbook = null;
@@ -255,7 +256,9 @@ class FlipbookViewer {
 
     // Current visible pages
     view.forEach(pageNum => {
-      if (pageNum > 0 && pageNum <= this.totalPages && !this.renderedPages.has(pageNum)) {
+      if (pageNum > 0 && pageNum <= this.totalPages && 
+          !this.renderedPages.has(pageNum) && 
+          !this.renderingPages.has(pageNum)) {
         pagesToRender.push(pageNum);
       }
     });
@@ -269,12 +272,14 @@ class FlipbookViewer {
     ];
 
     adjacentPages.forEach(pageNum => {
-      if (pageNum > 0 && pageNum <= this.totalPages && !this.renderedPages.has(pageNum)) {
+      if (pageNum > 0 && pageNum <= this.totalPages && 
+          !this.renderedPages.has(pageNum) && 
+          !this.renderingPages.has(pageNum)) {
         pagesToRender.push(pageNum);
       }
     });
 
-    // Render all pages in parallel
+    // Render all pages in parallel (now safe - each page renders only once)
     await Promise.all(pagesToRender.map(pageNum => this.renderPage(pageNum)));
   }
 
@@ -282,13 +287,24 @@ class FlipbookViewer {
    * Render a single PDF page to canvas
    */
   async renderPage(pageNum) {
-    if (this.renderedPages.has(pageNum) || pageNum > this.totalPages) return;
+    // Skip if already rendered or currently being rendered
+    if (this.renderedPages.has(pageNum) || 
+        this.renderingPages.has(pageNum) || 
+        pageNum > this.totalPages) {
+      return;
+    }
+
+    // Mark as currently rendering
+    this.renderingPages.add(pageNum);
 
     try {
       const page = await this.pdfDoc.getPage(pageNum);
       const canvas = document.getElementById(`page-canvas-${pageNum}`);
       
-      if (!canvas) return;
+      if (!canvas) {
+        this.renderingPages.delete(pageNum);
+        return;
+      }
 
       const context = canvas.getContext('2d');
       
@@ -314,6 +330,9 @@ class FlipbookViewer {
       this.renderedPages.add(pageNum);
     } catch (error) {
       console.error(`Error rendering page ${pageNum}:`, error);
+    } finally {
+      // Always remove from renderingPages when done (success or error)
+      this.renderingPages.delete(pageNum);
     }
   }
 
@@ -434,6 +453,7 @@ class FlipbookViewer {
     }
     this.flipbook.innerHTML = '';
     this.renderedPages.clear();
+    this.renderingPages.clear();
   }
 
   /**
