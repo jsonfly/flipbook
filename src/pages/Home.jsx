@@ -11,7 +11,7 @@ function Home() {
     <div className={styles.pageContainer}>
       <Header />
       <main className={styles.mainContent}>
-        <FlipbookViewer pdfUrl="http://localhost:5173/kalocsai_kollegium.pdf" />
+        <FlipbookViewer pdfUrl="/kalocsai_kollegium.pdf" />
       </main>
     </div>
   );
