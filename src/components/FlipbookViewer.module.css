@@ -7,7 +7,6 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 16px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 }
