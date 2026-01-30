@@ -383,11 +383,11 @@ class FlipbookViewer {
       
       if (displayPages.length === 2) {
         this.pageIndicator.innerHTML = `
-          <span class="current">${displayPages[0]}-${displayPages[1]}</span> of ${this.totalPages}
+          <span class="current">${displayPages[0]}-${displayPages[1]}</span> / ${this.totalPages}
         `;
       } else if (displayPages.length === 1) {
         this.pageIndicator.innerHTML = `
-          <span class="current">${displayPages[0]}</span> of ${this.totalPages}
+          <span class="current">${displayPages[0]}</span> / ${this.totalPages}
         `;
       }
     }
